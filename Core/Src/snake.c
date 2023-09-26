@@ -11,12 +11,14 @@
 #include "stdlib.h"
 #include "nokia5110_LCD.h"
 
+//structs that hold major data about game
 struct SnakeGameAttr CurrentGame;
 struct SnakeStruct ThisSnake;
 struct Food meaty;
 
 void printEndScreen()
 {
+	//clear screen
 	LCD_clrScr();
 	char scoreString[5];
 	itoa(CurrentGame.score, scoreString, 10);
@@ -27,28 +29,19 @@ void printEndScreen()
 
 void printCurrentGameScreen()
 {
+	//clear screen
 	LCD_clrScr();
 
 	//draw food
-	/*
-	for(uint8_t i = 0; i < 3; i++)
-		{
-			for(uint8_t j = 0; j < 3; j++)
-			{
-				LCD_setPixel(
-							meaty.x_pos +(i-1),
-							meaty.y_pos + (j-1), 1);
-			}
-		}
-	 */
 	LCD_setPixel(meaty.x_pos, meaty.y_pos+1, 1);
 	LCD_setPixel(meaty.x_pos+1, meaty.y_pos, 1);
 	LCD_setPixel(meaty.x_pos, meaty.y_pos-1, 1);
 	LCD_setPixel(meaty.x_pos-1, meaty.y_pos, 1);
+
 	//draw snake:
 	for(uint16_t l = ThisSnake.length; l > 0 ; l--)
 	{
-		//sward snake part
+		//draw snake part
 		for(uint8_t i = 0; i < 3; i++)
 		{
 			for(uint8_t j = 0; j < 3; j++)
@@ -59,12 +52,13 @@ void printCurrentGameScreen()
 			}
 		}
 	}
-
+	//Send data to screen
 	LCD_refreshScr();
 }
 
 void initGame()
 {
+	//init game
 	CurrentGame.gameOver = 0;
 	CurrentGame.score = 0;
 
@@ -80,6 +74,7 @@ void initGame()
 	meaty.x_pos = (rand()%27) * 3;
 	meaty.y_pos = (rand()%15) * 3;
 }
+
 
 uint8_t selfCollisionCheck()
 {
@@ -171,7 +166,6 @@ void updateGame(uint8_t inputDirection)
 		{
 			ThisSnake.currentDirection = inputDirection;
 		}
-
 	}
 
 	updateSnake();

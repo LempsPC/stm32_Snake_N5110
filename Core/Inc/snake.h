@@ -2,7 +2,7 @@
  * snake.h
  *
  *  Created on: Sep 25, 2023
- *      Author: lemps
+ *      Author: Lembitu
  */
 
 #ifndef INC_SNAKE_H_
@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+//Define maximum length of snake that can be in this game which comes from 28 x 16 grid which this game operates on
 #define MAX_SNAKE_LENGTH 448
 
 enum direction {
@@ -36,8 +37,6 @@ struct Food{
 	uint8_t y_pos;
 };
 
-void printEndScreen();
-void printCurrentGameScreen();
 
 /**
  * Starts the game
@@ -46,6 +45,8 @@ void initGame();
 
 /**
  * Updates game state
+ * inputs user direction where it wants snake to go next
+ * for easier readibility, use enum "direction"
  */
 void updateGame(uint8_t inputDirection);
 
